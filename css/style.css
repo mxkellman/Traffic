@@ -6,29 +6,41 @@ body {
 }
 
 .node {
-	fill: #151515;
+	fill: #333;
 }
 
 .node-loop {
 	display: none;
 }
-	
+
 .link {
 	stroke: #999;
 	fill: none;
 }
 
 .link-source {
-	stroke: #400;
-	fill: none;
-}
-	
-.link-target {
-	stroke: #040;
+	stroke: #300;
 	fill: none;
 }
 
-div.tooltip {   
+.link-target {
+	stroke: #030;
+	fill: none;
+}
+
+.loop-selected {
+	stroke: #333;
+	fill: none;
+}
+
+.tracer {
+	stroke-width: 0.5px;
+	stroke: #111;
+	pointer-events: none;
+}
+
+
+#tooltip {   
 	position: absolute;
 	text-align: center;
 	padding: 15px;      
@@ -38,4 +50,57 @@ div.tooltip {
 	pointer-events: none;
 	font-size: 12px;
 	color: #fff;
+}
+
+#infobar {
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	padding: 15px 15px 15px 25px;
+	position: fixed;
+	background: #050505;
+	z-index: 150;
+	color: #eee;
+}
+
+.infobar-title {
+	padding-bottom: 15px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.infobar-page-title {
+	padding-top: 30px;
+	padding-bottom: 15px;
+	font-size: 24px;
+	font-weight: 100;
+}
+
+.infobar-page-title span.name, .infobar-stat span.name {
+	color: #aaa;
+}
+
+.infobar-stat span.name, .infobar-stat span.category {
+	font-weight: bold;
+}
+
+.infobar-stat {
+	font-size: 30px;
+	padding-bottom: 15px;
+}
+
+.infobar-stat span.percent {
+	font-size: 15px;
+}
+
+.comes-from {
+	color: #040;
+}
+
+.goes-to {
+	color: #400;
+}
+
+.infobar-description {
+	font-size: 12px;
+	color: #ccc
 }
