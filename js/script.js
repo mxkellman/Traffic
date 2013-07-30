@@ -1,7 +1,8 @@
 /*
 
 Bugs
-• Let all tracers run their course before resuming
+• No tracer appears for nodes with only a single session
+• Extra tracer appears initially, works fine after "pause"
 • Fix infobar stats for site entry and exit (don't show entry and exit for those pages)
 • Show loop percentage
 
@@ -717,15 +718,22 @@ dv.util.traceOne = function(params) {
 		setTimeout(function(){
 			setInterval(function() {
 				params.pathIndex = params.pathIndex && params.pathIndex < dv.data.pathKeys.length ? params.pathIndex : 0;
-				if ((params.autorun || dv.state.selectedNodeID) && !params.pause) { 
+				if (params.pause) {
+					params.checkPause = setInterval(function() {
+						if (params.tracerCount != dv.svg.main.selectAll(".tracer")[0].length) { console.log('pause = ' + params.pause + ' | tracer count = ' + dv.svg.main.selectAll(".tracer")[0].length) };
+						params.tracerCount = dv.svg.main.selectAll(".tracer")[0].length;
+						if (dv.svg.main.selectAll(".tracer")[0].length == 0) {
+							params.pause = false;
+							clearInterval(params.checkPause);
+						}
+					}, 1000);
+				} else if ((params.autorun || dv.state.selectedNodeID) && !params.pause) { 
 					if (dv.state.selectedNodeID) {
 						params.sessIndex = params.sessIndex || 0;
 						params.sessKeys = d3.keys(dv.map.nodeSession[dv.state.selectedNodeID]);
 						if (params.sessIndex >= params.sessKeys.length) {
 							params.sessIndex = 0;
 							params.pause = true;
-							setTimeout(function() { params.pause = false; }, 2 * params.delay)
-							return false;	
 						}
 						params.sessID = params.sessKeys[params.sessIndex];
 						params.sessIndex++;
