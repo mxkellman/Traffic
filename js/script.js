@@ -720,8 +720,6 @@ dv.util.traceOne = function(params) {
 				params.pathIndex = params.pathIndex && params.pathIndex < dv.data.pathKeys.length ? params.pathIndex : 0;
 				if (params.pause) {
 					params.checkPause = setInterval(function() {
-						if (params.tracerCount != dv.svg.main.selectAll(".tracer")[0].length) { console.log('pause = ' + params.pause + ' | tracer count = ' + dv.svg.main.selectAll(".tracer")[0].length) };
-						params.tracerCount = dv.svg.main.selectAll(".tracer")[0].length;
 						if (dv.svg.main.selectAll(".tracer")[0].length == 0) {
 							params.pause = false;
 							clearInterval(params.checkPause);
