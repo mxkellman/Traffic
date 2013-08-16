@@ -84,7 +84,7 @@ dv.setup.vars = function() {
 
 dv.setup.options = function() {
 	dv.o = {
-			data: 'tdw-m.tsv'
+			data: 'data/tdw-m.tsv'
 		, page: {
 				pad: {
 					vertical: 0
