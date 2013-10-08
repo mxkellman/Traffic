@@ -1,7 +1,6 @@
 /*
 
 Bugs
-• No tracer appears for nodes with only a single session
 • Extra tracer appears initially, works fine after "pause"
 • Fix infobar stats for site entry and exit (don't show entry and exit for those pages)
 • Show loop percentage
@@ -194,8 +193,8 @@ dv.setup.withoutData = function() {
 
 dv.setup.withData = function() {
 	dv.create.scales();
-	dv.get.stats();
 	dv.draw.vis();
+	dv.get.stats();
 	dv.draw.siteStats();
 
 	// Start the tracer animation
@@ -337,13 +336,12 @@ dv.get.pageStats = function(page) {
 		allPagesTotal += dv.data.paths[sessionID].length;
 		thisPageTotal += sessions[sessionID];
 	});
-	
 	dv.data.pairs.forEach(function(d, i){
 		if (page.index === d.source.index) {
-			if (d.type != 'loop') {
+			if (d.type !== 'loop') {
 				if (d.rides > goesToMax) {
 					goesToMax = d.rides;
-					goesToIndex = d.target;
+					goesToIndex = d.target.index;
 				} 
 			} else {
 				loopRides = d.rides;
@@ -351,13 +349,17 @@ dv.get.pageStats = function(page) {
 		} else if (page.index === d.target.index) {
 			if (d.rides > comesFromMax) {
 				comesFromMax = d.rides;
-				comesFromIndex = d.source;
+				comesFromIndex = d.source.index;
 			} 
 		}
 	});
 	
+
 	stats = {
 			sessions: sessionKeysLength
+		,	goesToMax: goesToMax
+		,	comesFromMax: comesFromMax
+		,	views: page.views
 		,	percent: {
 				pages: page.views / dv.data.total.views
 			, sessions: sessionKeysLength / dv.data.total.sessions
@@ -768,7 +770,6 @@ dv.util.traversePath = function(params) {
 // Go through each link in a session, one at a time, designed to be re-called after tracing a link to move to the next link
 // params = { session, sessionIndex, sessionCallback }
 dv.util.traverseSession = function(params) {
-	if (!params.session) { console.log }
 	if (dv.state.selectedNodeID && params.session.indexOf(dv.state.selectedNodeID) === -1 && params.sessionIndex < params.session.length - 2) {
 		params.sessionIndex = params.session.length - 1;
 	}
