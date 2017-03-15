@@ -151,7 +151,7 @@ dv.setup.options = function() {
 					size: 'width'
 				, max: 'height'
 			}
-			, text: 'TDW Usage Tuesday, 10-11am'
+			, text: 'Site Usage Tuesday, 10-11am'
 		}
 		, colors: ['#393b79', '#6b6ecf', '#637939', '#b5cf6b', '#8c6d31', '#e7ba52', '#843c39', '#d6616b', '#7b4173', '#ce6dbd']
 		, tracer: {
